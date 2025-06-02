@@ -1,21 +1,34 @@
 # 🛡️ Phishing Detection & Analysis Home Lab
 
-Welcome to the **Phishing Detection and Analysis Home Lab**, a realistic hands-on environment for simulating and investigating phishing attacks. This project is ideal for SOC analysts, students, and cybersecurity enthusiasts who want to sharpen their skills in phishing email investigation, malware analysis, and threat intelligence.
+Hi! I'm currently working on a hands-on phishing detection and analysis project in my home lab. This lab simulates a real-world phishing investigation — from identifying suspicious emails to extracting indicators of compromise (IOCs), analyzing payloads, and reporting the threat. The goal is to strengthen my skills in email forensics, threat intelligence, and incident response.
 
 ---
 
-## 📌 Objectives
+## 🧪 Lab Purpose
 
-- Simulate phishing attacks in a sandboxed environment
-- Analyze phishing emails and attachments
-- Extract and correlate Indicators of Compromise (IOCs)
-- Investigate payloads and malicious URLs
-- Enrich findings with threat intelligence tools
-- Report findings and mitigation strategies
+The purpose of this project is to simulate a full phishing investigation workflow within a safe, isolated environment. I’m using a mix of open-source tools and custom scripts to:
+- Analyze suspicious email headers and content
+- Extract malicious links, IPs, and attachments
+- Run sandbox analysis of payloads
+- Enrich IOCs using threat intel platforms
+- Log and correlate events using a SIEM (Splunk)
 
 ---
 
-## 🧰 Tools Used
+## 🖥️ My Lab Setup
+
+I'm using VirtualBox with a NAT network setup (10.0.0.0/24). Here's the layout:## 🧰 Tools Used
+
+[ Kali Linux (Attacker) ]
+↓
+[ Email Server (Postfix + Dovecot) ]
+↓
+[ Windows 10 (Victim Workstation) ]
+↓
+[ SIEM/Log Server (Splunk on Ubuntu) ]
+Everything is self-contained and isolated for safety.
+
+---
 
 | Tool                | Use Case                                   |
 |---------------------|---------------------------------------------|
@@ -30,65 +43,106 @@ Welcome to the **Phishing Detection and Analysis Home Lab**, a realistic hands-o
 ---
 
 ## 🖥️ Lab Architecture
-All VMs are hosted in VirtualBox or VMware under a NAT network (10.0.0.0/24) for safe isolation.
+Everything is self-contained and isolated for safety.
 
 ---
 
-## ⚙️ Setup Guide
+## 🧰 Tools I'm Using
 
-1. **Deploy VMs**  
-   - Kali Linux (Attacker)  
-   - Windows 10 (Victim)  
-   - Ubuntu/Debian (Email server + Splunk)
-
-2. **Send Phishing Email**  
-   - Use Social Engineering Toolkit (SET) or manual spoofing  
-   - Attach malicious `.docm` or link
-
-3. **Analyze Email on Victim VM**  
-   - Review email headers using PhishTool  
-   - Open attachments in Any.Run or safe sandbox
-
-4. **Extract IOCs**  
-   - URLs, hashes, IPs, domains  
-   - Use CyberChef for decoding payloads  
-   - Use VirusTotal, URLScan, ThreatFox for enrichment
-
-5. **Log Analysis**  
-   - Configure Splunk or ELK to ingest logs and alerts  
-   - Visualize and correlate events using dashboards
-
-6. **Document & Report**  
-   - Use provided template to write a full threat report
+- **Wireshark** – To monitor and analyze network traffic
+- **PhishTool** – For analyzing email headers
+- **CyberChef** – To decode and deobfuscate suspicious strings
+- **Any.Run** / **Joe Sandbox** – For dynamic malware analysis
+- **VirusTotal** / **URLScan.io** – For threat intel lookups
+- **Splunk** – For log analysis and visualization
+- **Python** – For scripting IOC extraction and automation
 
 ---
 
-## 📂 Directory Structure
+## 🔍 What I Did
+
+### 1. Simulated a Phishing Attack
+I crafted a phishing email using **SET (Social Engineering Toolkit)** on my Kali box, spoofing a fake Apple ID login alert with a `.docm` attachment and suspicious link.
+
+### 2. Received and Analyzed the Email
+On my Windows 10 victim VM, I opened the phishing email in Thunderbird. Using **PhishTool**, I inspected the headers and identified:
+- SPF fail
+- Suspicious sender domain
+- Unusual routing IP: `185.45.67.123`
+
+### 3. Extracted IOCs
+I manually and programmatically pulled out:
+- URLs: `http://apple-id-login[.]update-now[.]ru`
+- IPs: `185.45.67.123`
+- File hash: `9a8b7c6d5e4f3a2b1c0d...`
+
+Used **CyberChef** to decode hidden Base64 payloads.
+
+### 4. Malware Analysis
+Uploaded the `.docm` file to **Any.Run** to observe behavior. The document attempted to run PowerShell commands that downloaded a secondary payload.
+
+### 5. Enriched Threat Data
+Used **VirusTotal**, **AbuseIPDB**, and **ThreatFox** to gather intel:
+- Confirmed the domain was associated with multiple phishing campaigns
+- The IP was flagged in multiple abuse reports
+
+### 6. Logged Everything in Splunk
+Set up log forwarding to **Splunk** and created a dashboard to visualize:
+- Phishing email alerts
+- IOC hits
+- Timeline of attack execution
+
 ---
 
-## 🧪 Example IOC Output
+## 📁 Repo Structure
 
-**Email Header:**
-**Extracted IOCs:**
-- `http://appleid-login[.]secure-update[.]ru`
-- File hash: `e99a18c428cb38d5f260853678922e03`
-- IP Address: `185.123.45.67`
+phishing-lab/
+├── setup/
+│   └── virtualbox_config.md
+├── phishing_email/
+│   └── fake_apple_eml.eml
+├── artifacts/
+│   ├── invoice.docm
+│   ├── iocs.txt
+│   └── malware_hashes.txt
+├── analysis/
+│   ├── anyrun_report.pdf
+│   ├── cyberchef_results.txt
+│   └── threat_intel_notes.md
+├── scripts/
+│   └── extract_iocs.py
+├── dashboards/
+│   └── splunk_dashboard.json
+└── README.md
+---
+
+## 🧠 What I Learned
+
+- How to safely analyze phishing emails and attachments
+- How to identify and decode hidden payloads
+- Practical use of threat intelligence tools
+- How to set up basic log collection and analysis with Splunk
+- The importance of documenting every step clearly and methodically
 
 ---
 
-## 📚 Learning Outcomes
+## 📚 Next Steps
 
-✅ Understand phishing attack vectors  
-✅ Perform detailed email header analysis  
-✅ Decode obfuscated payloads and links  
-✅ Enrich and correlate IOCs with open-source intel tools  
-✅ Report and document findings professionally
+- Add detection rules in Splunk for similar phishing patterns
+- Automate IOC enrichment using Python APIs
+- Simulate lateral movement in a post-phish breach scenario
 
 ---
 
-## 🙌 Credits
+## 🙌 About Me
 
-Created by **Christopher Ham**, Cybersecurity Student | SOC Analyst in Training  
-This project is part of a broader cybersecurity home lab initiative for developing real-world defensive security skills.
+I'm currently training to become a SOC Analyst and threat intelligence specialist. This home lab is part of my ongoing cybersecurity learning journey. You can check out my other labs and projects [here](https://github.com/cham252).
+
+If you're interested in collaborating or have feedback, feel free to connect!
+
+📧 **Email:** ayko4430@gmail.com  
+🔗 **LinkedIn:** www.linkedin.com/in/christopherham252
 
 ---
+
+> **Note:** This project is for educational and professional development purposes only. All testing is done in a secure, offline lab environment.
