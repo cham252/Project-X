@@ -61,7 +61,7 @@ The lab simulates a small company called **ProjectX**.
 
 The diagram below shows the **ProjectX** enterprise simulation, including endpoints, servers, and the attack path used during the red team simulation.  
 
-![Network Topology](images/projectx_network_topology.png)  
+![Network Topology](https://github.com/cham252/Project-X/blob/main/projectx_network_topology.png)  
 
 ---
 
