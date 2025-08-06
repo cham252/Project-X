@@ -1,148 +1,157 @@
-# 🛡️ Phishing Detection & Analysis Home Lab
+# 🚀 ProjectX Cybersecurity Home Lab  
 
-Hi! I'm currently working on a hands-on phishing detection and analysis project in my home lab. This lab simulates a real-world phishing investigation — from identifying suspicious emails to extracting indicators of compromise (IOCs), analyzing payloads, and reporting the threat. The goal is to strengthen my skills in email forensics, threat intelligence, and incident response.
-
----
-
-## 🧪 Lab Purpose
-
-The purpose of this project is to simulate a full phishing investigation workflow within a safe, isolated environment. I’m using a mix of open-source tools and custom scripts to:
-- Analyze suspicious email headers and content
-- Extract malicious links, IPs, and attachments
-- Run sandbox analysis of payloads
-- Enrich IOCs using threat intel platforms
-- Log and correlate events using a SIEM (Splunk)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Tools](https://img.shields.io/badge/Tools-VirtualBox%20%7C%20Security%20Onion%20%7C%20Wazuh%20%7C%20Kali%20Linux-orange)
+![Skills](https://img.shields.io/badge/Skills-Active%20Directory%20%7C%20SIEM%20%7C%20Threat%20Hunting%20%7C%20Incident%20Response-success)
 
 ---
 
-## 🖥️ My Lab Setup
+## 📌 Overview  
+As a cybersecurity analyst in training, I wanted a space where I could **learn by doing** — a place to break things, fix them, simulate attacks, and practice defenses without risking real systems. That’s how **ProjectX** was born: my own fully functional, virtualized **enterprise network**, complete with a simulated business infrastructure, a SIEM, and the ability to both **attack and defend** in a safe, controlled environment.  
 
-I'm using VirtualBox with a NAT network setup (10.0.0.0/24). Here's the layout:## 🧰 Tools Used
-
-[ Kali Linux (Attacker) ]
-↓
-[ Email Server (Postfix + Dovecot) ]
-↓
-[ Windows 10 (Victim Workstation) ]
-↓
-[ SIEM/Log Server (Splunk on Ubuntu) ]
-Everything is self-contained and isolated for safety.
+Homelabs aren’t just “practice grounds” — they’re **proof of skill**. This project allowed me to apply what I’ve learned from certifications, courses, and hands-on research while producing something I can **showcase to potential employers**.  
 
 ---
 
-| Tool                | Use Case                                   |
-|---------------------|---------------------------------------------|
-| Wireshark           | Packet capture and network traffic analysis |
-| PhishTool           | Email header and metadata analysis          |
-| CyberChef           | Payload decoding and deobfuscation          |
-| Any.Run / Joe Sandbox | Malware dynamic analysis                  |
-| VirusTotal / URLScan.io | IOC enrichment and URL analysis        |
-| Splunk / ELK Stack  | Log and event correlation                   |
-| Python              | Custom scripts for automation               |
+## 🏆 Objectives  
+The goals of this lab were:  
+- **Hands-on practice** — replicate the core parts of a business network.  
+- **Portfolio building** — document and showcase my work to highlight my skills.  
+- **Security-first mindset** — simulate cyberattacks and practice real detection and response.  
+- **Cost-effective learning** — built entirely on my own hardware, with free and open-source tools where possible.  
 
 ---
 
-## 🖥️ Lab Architecture
-Everything is self-contained and isolated for safety.
+## 🎯 Expected Outcomes  
+By the end of this build, my lab would have:  
+- A fully functional **virtual network** with multiple simulated business components.  
+- Core services like **Active Directory**, **email**, **SIEM/XDR**, and a **security sandbox**.  
+- The ability to **simulate cyberattacks from initial access to full compromise**.  
+- Custom-built **detections and alerts** for threat hunting and incident response practice.  
 
 ---
 
-## 🧰 Tools I'm Using
-
-- **Wireshark** – To monitor and analyze network traffic
-- **PhishTool** – For analyzing email headers
-- **CyberChef** – To decode and deobfuscate suspicious strings
-- **Any.Run** / **Joe Sandbox** – For dynamic malware analysis
-- **VirusTotal** / **URLScan.io** – For threat intel lookups
-- **Splunk** – For log analysis and visualization
-- **Python** – For scripting IOC extraction and automation
+## 🛠 Prerequisites  
+Before starting, I made sure I had:  
+- **Basic IT knowledge** — networking, OS installation, and virtualization concepts.  
+- **Hardware** — a workstation with at least **8 GB RAM, 4 CPU cores, and 100 GB free space**.  
+- **Virtualization software** — VirtualBox (free and open-source).  
+- **A willingness to experiment and learn** — the most important ingredient.  
 
 ---
 
-## 🔍 What I Did
+## 🏗️ Lab Architecture  
 
-### 1. Simulated a Phishing Attack
-I crafted a phishing email using **SET (Social Engineering Toolkit)** on my Kali box, spoofing a fake Apple ID login alert with a `.docm` attachment and suspicious link.
+The lab simulates a small company called **ProjectX**.  
 
-### 2. Received and Analyzed the Email
-On my Windows 10 victim VM, I opened the phishing email in Thunderbird. Using **PhishTool**, I inspected the headers and identified:
-- SPF fail
-- Suspicious sender domain
-- Unusual routing IP: `185.45.67.123`
-
-### 3. Extracted IOCs
-I manually and programmatically pulled out:
-- URLs: `http://apple-id-login[.]update-now[.]ru`
-- IPs: `185.45.67.123`
-- File hash: `9a8b7c6d5e4f3a2b1c0d...`
-
-Used **CyberChef** to decode hidden Base64 payloads.
-
-### 4. Malware Analysis
-Uploaded the `.docm` file to **Any.Run** to observe behavior. The document attempted to run PowerShell commands that downloaded a secondary payload.
-
-### 5. Enriched Threat Data
-Used **VirusTotal**, **AbuseIPDB**, and **ThreatFox** to gather intel:
-- Confirmed the domain was associated with multiple phishing campaigns
-- The IP was flagged in multiple abuse reports
-
-### 6. Logged Everything in Splunk
-Set up log forwarding to **Splunk** and created a dashboard to visualize:
-- Phishing email alerts
-- IOC hits
-- Timeline of attack execution
+| Component       | Purpose                                              | OS / Tool                        |
+|----------------|------------------------------------------------------|-----------------------------------|
+| **DC01**       | Domain Controller for authentication & GPOs          | Windows Server 2022 (Active Directory) |
+| **W11-Client** | Corporate workstation                                 | Windows 11 Enterprise            |
+| **Ubuntu-Desktop** | Linux endpoint for diversity                     | Ubuntu 22.04                     |
+| **SO-Monitor** | Network monitoring, IDS/IPS, PCAP analysis            | Security Onion                   |
+| **Mail-Server**| Handles corporate email communications                | Postfix on Ubuntu                 |
+| **Wazuh-SIEM** | Centralized log collection, threat detection, alerts  | Wazuh Security Server             |
+| **AttackBox**  | Red team simulation system                            | Kali Linux                        |
 
 ---
 
-## 📁 Repo Structure
+## 🖥️ Network Topology Diagram  
 
-phishing-lab/
-├── setup/
-│   └── virtualbox_config.md
-├── phishing_email/
-│   └── fake_apple_eml.eml
-├── artifacts/
-│   ├── invoice.docm
-│   ├── iocs.txt
-│   └── malware_hashes.txt
-├── analysis/
-│   ├── anyrun_report.pdf
-│   ├── cyberchef_results.txt
-│   └── threat_intel_notes.md
-├── scripts/
-│   └── extract_iocs.py
-├── dashboards/
-│   └── splunk_dashboard.json
-└── README.md
----
+The diagram below shows the **ProjectX** enterprise simulation, including endpoints, servers, and the attack path used during the red team simulation.  
 
-## 🧠 What I Learned
-
-- How to safely analyze phishing emails and attachments
-- How to identify and decode hidden payloads
-- Practical use of threat intelligence tools
-- How to set up basic log collection and analysis with Splunk
-- The importance of documenting every step clearly and methodically
+![Network Topology](images/projectx_network_topology.png)  
 
 ---
 
-## 📚 Next Steps
+## 🔧 Step-by-Step Build  
 
-- Add detection rules in Splunk for similar phishing patterns
-- Automate IOC enrichment using Python APIs
-- Simulate lateral movement in a post-phish breach scenario
-
----
-
-## 🙌 About Me
-
-I'm currently training to become a SOC Analyst and threat intelligence specialist. This home lab is part of my ongoing cybersecurity learning journey. You can check out my other labs and projects [here](https://github.com/cham252).
-
-If you're interested in collaborating or have feedback, feel free to connect!
-
-📧 **Email:** ayko4430@gmail.com  
-🔗 **LinkedIn:** www.linkedin.com/in/christopherham252
+### **1. Virtual Network Setup**  
+- Created two isolated networks in VirtualBox:  
+  - **Corporate Network** — for business operations.  
+  - **Attack Network** — for controlled red team activity.  
+- Configured static IPs for predictable connectivity.  
 
 ---
 
-> **Note:** This project is for educational and professional development purposes only. All testing is done in a secure, offline lab environment.
+### **2. Windows Active Directory (DC01)**  
+- Installed **Windows Server 2022**.  
+- Configured **Active Directory Domain Services**.  
+- Created **Organizational Units (OUs)** for users, groups, and computers.  
+- Applied **Group Policy Objects (GPOs)** to simulate real-world restrictions.  
+
+---
+
+### **3. Windows 11 Enterprise Workstation**  
+- Joined the machine to the **ProjectX.local** domain.  
+- Configured **domain user logins**.  
+- Installed basic business applications.  
+
+---
+
+### **4. Ubuntu Desktop**  
+- Added as a non-Windows endpoint.  
+- Configured SSH and installed productivity tools.  
+
+---
+
+### **5. Security Onion Deployment**  
+- Installed **Security Onion** as a network monitoring platform.  
+- Enabled **Zeek**, **Suricata**, and **Elastic Stack**.  
+- Configured dashboards for **threat hunting**.  
+
+---
+
+### **6. Postfix Email Server**  
+- Built an internal **Postfix/Dovecot email system**.  
+- Created test accounts for phishing simulations.  
+
+---
+
+### **7. Wazuh Security Server**  
+- Installed **Wazuh** for log aggregation and alerting.  
+- Integrated logs from **Windows, Linux, and Security Onion**.  
+- Created **custom detection rules** for specific threats.  
+
+---
+
+### **8. Red Team Simulation (AttackBox)**  
+- Installed **Kali Linux** as an attacker box.  
+- Simulated:  
+  - **Phishing attack** with malicious attachments.  
+  - **Credential harvesting** from a compromised endpoint.  
+  - **Lateral movement** into the domain controller.  
+- Logged and analyzed activity in **Wazuh** and **Security Onion**.  
+
+---
+
+## 🔍 Skills Demonstrated  
+- **Network architecture & segmentation** for security.  
+- **Windows Server administration** (AD, GPOs).  
+- **Linux server configuration** (Postfix, Ubuntu endpoints).  
+- **SIEM/XDR integration** with Wazuh & Security Onion.  
+- **Incident response** — detecting, analyzing, responding.  
+- **Threat hunting** — using Zeek, Suricata, Kibana dashboards.  
+- **Custom rule writing** for detection.  
+
+---
+
+## 📸 Screenshots & Evidence  
+> _Below are placeholders — I will replace these with actual lab screenshots._  
+
+- ![Active Directory Setup](images/ad_setup.png)  
+- ![Wazuh SIEM Dashboard](images/wazuh_dashboard.png)  
+- ![Security Onion Alerts](images/so_alerts.png)  
+- ![Attack Simulation Output](images/attack_sim.png)  
+
+---
+
+## 📄 Conclusion  
+This homelab gave me a **safe, flexible, and realistic** platform to sharpen my cybersecurity skills. I practiced attacking and defending systems, learned enterprise-grade tools, and created a system I can **demonstrate to employers** as proof of my technical abilities.  
+
+---
+
+**Author:** Christopher Ham  
+**LinkedIn:** [linkedin.com/in/christopherham252](https://www.linkedin.com/in/christopherham252)  
+**License:** MIT  
