@@ -1,4 +1,4 @@
-# 🚀 ProjectX Cybersecurity Home Lab  
+# 🚀 Project X Cybersecurity Home Lab  
 
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-blue)
