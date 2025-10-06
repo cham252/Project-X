@@ -153,5 +153,6 @@ This homelab gave me a **safe, flexible, and realistic** platform to sharpen my 
 ---
 
 **Author:** Christopher Ham  
-**LinkedIn:** [linkedin.com/in/christopher-ham-cyber](www.linkedin.com/in/christopher-ham-cyber)  
+**LinkedIn:** [linkedin.com/in/christopher-ham-cyber](https://www.linkedin.com/in/christopher-ham-cyber)
+
 **License:** MIT  
