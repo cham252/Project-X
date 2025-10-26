@@ -141,7 +141,7 @@ The diagram below shows the **ProjectX** enterprise simulation, including endpoi
 > _Below are placeholders — I will replace these with actual lab screenshots._  
 
 - ![Active Directory Setup](https://github.com/cham252/Project-X/blob/main/Screenshot%202025-10-26%20113645.png)  
-- ![Wazuh SIEM Dashboard](images/wazuh_dashboard.png)  
+- ![Wazuh SIEM Dashboard](https://github.com/cham252/Project-X/blob/main/Screenshot%202025-10-26%20073131.png))  
 - ![Security Onion Alerts](images/so_alerts.png)  
 - ![Attack Simulation Output](images/attack_sim.png)  
 
