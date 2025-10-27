@@ -16,8 +16,7 @@ Homelabs aren’t just “practice grounds” — they’re **proof of skill**. 
 
 ## 🏆 Objectives  
 The goals of this lab were:  
-- **Hands-on practice** — replicate the core parts of a business network.  
-- **Portfolio building** — document and showcase my work to highlight my skills.  
+- **Hands-on practice** — replicate the core parts of a business network.    
 - **Security-first mindset** — simulate cyberattacks and practice real detection and response.  
 - **Cost-effective learning** — built entirely on my own hardware, with free and open-source tools where possible.  
 
